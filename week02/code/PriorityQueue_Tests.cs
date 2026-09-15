@@ -6,21 +6,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests 
 { 
     [TestMethod] 
-    // Scenario: Add three items with different priorities to the queue and remove them.
-    // Expected Result: The item with the highest priority should be removed first, followed by the next highest priority.
-    // Defect(s) Found: None. The test verifies that items with different priorities are removed in priority order.
-    public void TestPriorityQueue_1() 
-    { 
-        var priorityQueue = new PriorityQueue();
+    
+// Scenario: Add three items with different priorities to the queue and remove them.
+// Expected Result: The item with the highest priority should be removed first, followed by the next highest priority.
+// Defect(s) Found: The loop used Count - 1, which caused the last item in the queue to be skipped when searching for the highest priority.
+public void TestPriorityQueue_1() 
+{ 
+    var priorityQueue = new PriorityQueue();
 
-        priorityQueue.Enqueue("Low", 1);
-        priorityQueue.Enqueue("High", 5);
-        priorityQueue.Enqueue("Medium", 3);
+    priorityQueue.Enqueue("Low", 1);
+    priorityQueue.Enqueue("Medium", 3);
+    priorityQueue.Enqueue("High", 5);
 
-        Assert.AreEqual("High", priorityQueue.Dequeue());
-        Assert.AreEqual("Medium", priorityQueue.Dequeue());
-        Assert.AreEqual("Low", priorityQueue.Dequeue());
-    } 
+    Assert.AreEqual("High", priorityQueue.Dequeue());
+    Assert.AreEqual("Medium", priorityQueue.Dequeue());
+    Assert.AreEqual("Low", priorityQueue.Dequeue());
+}
  
     [TestMethod] 
     // Scenario: Add three items with the same priority to the queue.
